@@ -1259,6 +1259,9 @@ textarea { resize: vertical; min-height: 72px; }
 
 <script>
 // ─────────────────────────────────────────────────────────────────
+// ⚠️  REEMPLAZA ESTE VALOR con tu Web App URL de Google Apps Script
+// Instrucciones: ver HANDOFF.md → Sección "Publicar el Apps Script"
+// ─────────────────────────────────────────────────────────────────
 const APPS_SCRIPT_URL = '/api/submit';
 
 // ─── SECURITY QUESTIONS ───────────────────────────────────────────
@@ -1516,13 +1519,12 @@ async function submitForm() {
   const data = collectData();
 
   try {
-    await fetch(APPS_SCRIPT_URL, {
+    const resp = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    // no-cors = no response body, assume success
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
     document.getElementById('loading-overlay').classList.remove('show');
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('success-screen').style.display = 'block';
