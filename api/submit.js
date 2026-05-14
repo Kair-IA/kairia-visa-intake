@@ -21,6 +21,7 @@ module.exports = async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const data = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    const incomingKeys = Object.keys(data);
 
     // Ensure the "Solicitudes" tab exists
     const meta = await sheets.spreadsheets.get({ spreadsheetId: SHEET_ID });
@@ -32,15 +33,22 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // Read existing headers (row 1)
-    let headers;
+    // Read existing headers
+    let headers = [];
     try {
       const r = await sheets.spreadsheets.values.get({ spreadsheetId: SHEET_ID, range: `${TAB}!1:1` });
-      headers = r.data.values?.[0];
-    } catch (_) { headers = null; }
+      headers = r.data.values?.[0] ?? [];
+    } catch (_) {}
 
-    if (!headers?.length) {
-      headers = ['⏱ Timestamp', ...Object.keys(data)];
+    // If sheet is empty OR incoming data has more fields than headers → rebuild headers
+    const needsRebuild = headers.length === 0 || incomingKeys.some(k => !headers.includes(k));
+
+    if (needsRebuild) {
+      // Merge existing headers with incoming keys (preserving order, adding new ones)
+      const merged = headers.length > 0
+        ? [...headers, ...incomingKeys.filter(k => !headers.includes(k))]
+        : ['⏱ Timestamp', ...incomingKeys];
+      headers = merged;
       await sheets.spreadsheets.values.update({
         spreadsheetId: SHEET_ID,
         range: `${TAB}!A1`,
