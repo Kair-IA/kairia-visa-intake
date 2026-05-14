@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitud de Visa EE.UU. · Formulario de Captación</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─── */
+:root {
+  --ink:       #16202e;
+  --ink-mid:   #3a4f65;
+  --ink-soft:  #7a93aa;
+  --paper:     #faf9f7;
+  --card:      #ffffff;
+  --line:      #e4eaf0;
+  --blue:      #1b5fa4;
+  --blue-lt:   #d6e8ff;
+  --amber:     #e07b20;
+  --amber-lt:  #fff3e0;
+  --green:     #1e7a50;
+  --green-lt:  #e6f5ee;
+  --red:       #c0392b;
+  --red-lt:    #fdf0ee;
+  --radius:    12px;
+  --shadow:    0 4px 24px rgba(22,32,46,.09);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* ─── SHELL ─── */
+.shell {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 16px 80px;
+}
+
+/* ─── HEADER ─── */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 0 24px;
+}
+.site-header .logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: -0.01em;
+}
+.site-header .sep { color: var(--line); font-size: 1.2rem; }
+.site-header .doc-title {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+/* ─── PROGRESS ─── */
+.progress-bar-wrap {
+  background: var(--line);
+  height: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--amber));
+  border-radius: 4px;
+  transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -24px;
+  margin-bottom: 24px;
+}
+.progress-meta .step-num {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.progress-meta .step-pct {
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+/* ─── STEP WRAPPER ─── */
+.step {
+  display: none;
+  animation: slideIn .3s cubic-bezier(.4,0,.2,1);
+}
+.step.active { display: block; }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── SECTION HEADLINE ─── */
+.step-headline {
+  margin-bottom: 28px;
+}
+.step-headline .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+.step-headline h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.step-headline p {
+  margin-top: 6px;
+  font-size: 0.88rem;
+  color: var(--ink-mid);
+}
+
+/* ─── CARD ─── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ─── FIELD SYSTEM ─── */
+.field { margin-bottom: 16px; }
+.field:last-child { margin-bottom: 0; }
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+@media(max-width:520px) {
+  .field-row, .field-row.three { grid-template-columns: 1fr; }
+}
+
+label.lbl {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+label.lbl .sub {
+  display: block;
+  font-weight: 400;
+  font-size: 0.73rem;
+  color: var(--ink-soft);
+  margin-top: 1px;
+}
+label.lbl .req { color: var(--amber); margin-left: 2px; }
+
+input[type=text], input[type=email], input[type=tel],
+input[type=date], input[type=number], select, textarea {
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  color: var(--ink);
+  background: #fcfcfb;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 11px 13px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%237a93aa' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 34px;
+  cursor: pointer;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-lt);
+  background: white;
+}
+textarea { resize: vertical; min-height: 72px; }
+
+/* ─── TOGGLE PILLS ─── */
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+.pill-group label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: #f4f6f9;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.86rem;
+  color: var(--ink-mid);
+  font-weight: 500;
+  transition: all .15s;
+  user-select: none;
+}
+.pill-group label:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-lt); }
+.pill-group input[type=radio], .pill-group input[type=checkbox] { display: none; }
+.pill-group input:checked + span {
+  /* via JS adding .selected class to label */
+}
+.pill-group label.selected {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+}
+
+/* ─── CONDITIONAL ─── */
+.cond {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height .3s ease, opacity .2s ease, margin .2s ease;
+  margin-top: 0;
+}
+.cond.open {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: 14px;
+}
+.cond-inner {
+  background: #f4f8ff;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 8px 8px 0;
+  padding: 16px;
+}
+
+/* ─── SECURITY CHECKLIST ─── */
+.sq-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.sq-item:first-child { padding-top: 0; }
+.sq-item:last-child { border-bottom: none; padding-bottom: 0; }
+.sq-item p { font-size: 0.86rem; line-height: 1.55; color: var(--ink-mid); }
+.sq-explain {
+  grid-column: 1/-1;
+  display: none;
+}
+.sq-explain.open { display: block; margin-top: 8px; }
+.sq-explain textarea { min-height: 56px; font-size: 0.84rem; }
+
+/* ─── ALERT ─── */
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.alert-info { background: var(--blue-lt); color: #174f90; }
+.alert-warn { background: var(--amber-lt); color: #7a4400; }
+
+/* ─── NAV ─── */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  gap: 12px;
+}
+.btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s, transform .1s, box-shadow .15s;
+  letter-spacing: .01em;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary {
+  background: var(--blue);
+  color: white;
+  box-shadow: 0 2px 12px rgba(27,95,164,.3);
+}
+.btn-primary:hover { box-shadow: 0 4px 20px rgba(27,95,164,.45); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-mid);
+  border: 1.5px solid var(--line);
+}
+.btn-ghost:hover { background: var(--line); }
+.btn-success {
+  background: var(--green);
+  color: white;
+  box-shadow: 0 2px 12px rgba(30,122,80,.3);
+}
+.btn-success:hover { box-shadow: 0 4px 20px rgba(30,122,80,.4); }
+.btn-lg { padding: 15px 36px; font-size: 1rem; }
+.btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+
+/* ─── SUCCESS SCREEN ─── */
+#success-screen {
+  display: none;
+  text-align: center;
+  padding: 60px 0;
+}
+#success-screen .check-icon {
+  width: 72px; height: 72px;
+  background: var(--green-lt);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 2rem;
+}
+#success-screen h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.8rem;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+#success-screen p { color: var(--ink-mid); font-size: 0.95rem; max-width: 400px; margin: 0 auto; }
+
+/* ─── LOADING OVERLAY ─── */
+#loading-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(250,249,247,.9);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+#loading-overlay.show { display: flex; }
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--line);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+#loading-overlay p { font-size: 0.88rem; color: var(--ink-mid); }
+
+/* ─── MISC ─── */
+.divider { border: none; border-top: 1px solid var(--line); margin: 18px 0; }
+.flag-emoji { font-size: 1.1rem; }
+</style>
+</head>
+<body>
+
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <p>Enviando tu información de forma segura…</p>
+</div>
+
+<div class="shell">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <span class="logo">🇺🇸 Visa EE.UU.</span>
+    <span class="sep">·</span>
+    <span class="doc-title">Formulario de captación · Todos los campos son confidenciales</span>
+  </header>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:11%"></div>
+  </div>
+  <div class="progress-meta">
+    <span class="step-num" id="stepLabel">Paso 1 de 9</span>
+    <span class="step-pct" id="stepPct">11%</span>
+  </div>
+
+  <!-- ══ PASO 1: DATOS PERSONALES ══ -->
+  <div class="step active" id="step-1">
+    <div class="step-headline">
+      <div class="eyebrow">👤 Sección 1</div>
+      <h2>Cuéntanos quién eres</h2>
+      <p>Usa exactamente los nombres como aparecen en tu pasaporte.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Nombre completo</div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Apellidos <span class="req">*</span><span class="sub">Tal como en el pasaporte</span></label>
+          <input type="text" id="apellidos" placeholder="GARCÍA LÓPEZ" required>
+        </div>
+        <div>
+          <label class="lbl">Nombres <span class="req">*</span><span class="sub">Tal como en el pasaporte</span></label>
+          <input type="text" id="nombres" placeholder="CARLOS ANDRÉS" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">¿Has usado otros nombres? (soltera, apodo, nombre anterior)</label>
+        <div class="pill-group" data-name="otrosNombres" data-cond="otrosNombresCond">
+          <label><input type="radio" name="otrosNombres" value="No"><span>No</span></label>
+          <label><input type="radio" name="otrosNombres" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="otrosNombresCond">
+          <div class="cond-inner">
+            <div class="field-row">
+              <div>
+                <label class="lbl">Otro apellido</label>
+                <input type="text" id="otroApellido">
+              </div>
+              <div>
+                <label class="lbl">Otro nombre</label>
+                <input type="text" id="otroNombre">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Datos básicos</div>
+      <div class="field field-row three">
+        <div>
+          <label class="lbl">Fecha de nacimiento <span class="req">*</span></label>
+          <input type="date" id="fechaNac" required>
+        </div>
+        <div>
+          <label class="lbl">Sexo <span class="req">*</span></label>
+          <select id="sexo" required>
+            <option value="">Selecciona...</option>
+            <option>Masculino</option>
+            <option>Femenino</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">Estado civil <span class="req">*</span></label>
+          <select id="estadoCivil" required>
+            <option value="">Selecciona...</option>
+            <option>Soltero/a</option>
+            <option>Casado/a</option>
+            <option>Unión libre</option>
+            <option>Divorciado/a</option>
+            <option>Separado/a</option>
+            <option>Viudo/a</option>
+          </select>
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Ciudad de nacimiento <span class="req">*</span></label>
+          <input type="text" id="ciudadNac" required>
+        </div>
+        <div>
+          <label class="lbl">País de nacimiento <span class="req">*</span></label>
+          <input type="text" id="paisNac" required>
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">País de ciudadanía / nacionalidad <span class="req">*</span><span class="sub">País del pasaporte con el que viajará</span></label>
+          <input type="text" id="ciudadania" required>
+        </div>
+        <div>
+          <label class="lbl">Número de cédula / ID nacional</label>
+          <input type="text" id="cedula" placeholder="Ej: 1234567890">
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">¿Tiene o ha tenido ciudadanía de otro país?</label>
+        <div class="pill-group" data-name="otraCiud" data-cond="otraCiudCond">
+          <label><input type="radio" name="otraCiud" value="No"><span>No</span></label>
+          <label><input type="radio" name="otraCiud" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="otraCiudCond">
+          <div class="cond-inner">
+            <label class="lbl">¿De qué país? ¿Cómo la adquirió?</label>
+            <input type="text" id="otraCiudDetalle" placeholder="Ej: España, por naturalización">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <span></span>
+      <button class="btn btn-primary" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ══ PASO 2: PASAPORTE ══ -->
+  <div class="step" id="step-2">
+    <div class="step-headline">
+      <div class="eyebrow">📘 Sección 2</div>
+      <h2>Información del pasaporte</h2>
+      <p>Datos exactos del documento con el que viajará a EE.UU.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Documento de viaje</div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Tipo de pasaporte <span class="req">*</span></label>
+          <select id="tipoPasaporte" required>
+            <option value="">Selecciona...</option>
+            <option>Regular / Ordinario</option>
+            <option>Oficial</option>
+            <option>Diplomático</option>
+            <option>Emergencia / Temporal</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">Número de pasaporte <span class="req">*</span></label>
+          <input type="text" id="numPasaporte" placeholder="AB123456" required>
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">País que lo expidió <span class="req">*</span></label>
+          <input type="text" id="paisPasaporte" required>
+        </div>
+        <div>
+          <label class="lbl">Ciudad de expedición</label>
+          <input type="text" id="ciudadPasaporte">
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Fecha de expedición <span class="req">*</span></label>
+          <input type="date" id="fechaExpedicion" required>
+        </div>
+        <div>
+          <label class="lbl">Fecha de vencimiento <span class="req">*</span></label>
+          <input type="date" id="fechaVencimiento" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Pérdida o robo</div>
+      <div class="field">
+        <label class="lbl">¿Ha perdido algún pasaporte o se lo han robado?</label>
+        <div class="pill-group" data-name="pasRobado" data-cond="pasRobadoCond">
+          <label><input type="radio" name="pasRobado" value="No"><span>No</span></label>
+          <label><input type="radio" name="pasRobado" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="pasRobadoCond">
+          <div class="cond-inner">
+            <div class="field-row">
+              <div>
+                <label class="lbl">Número del pasaporte perdido/robado</label>
+                <input type="text" id="numPasRobado">
+              </div>
+              <div>
+                <label class="lbl">País que lo expidió</label>
+                <input type="text" id="paisPasRobado">
+              </div>
+            </div>
+            <div class="field" style="margin-top:10px">
+              <label class="lbl">Explica qué ocurrió</label>
+              <textarea id="explicPasRobado" rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <button class="btn btn-primary" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ══ PASO 3: EL VIAJE ══ -->
+  <div class="step" id="step-3">
+    <div class="step-headline">
+      <div class="eyebrow">✈️ Sección 3</div>
+      <h2>El viaje a EE.UU.</h2>
+      <p>Propósito, fechas y dónde te quedarás.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Propósito del viaje</div>
+      <div class="field">
+        <label class="lbl">¿Para qué vas a EE.UU.? <span class="req">*</span></label>
+        <select id="proposito" required>
+          <option value="">Selecciona el tipo de visa...</option>
+          <optgroup label="Turismo / Negocios">
+            <option>B-1 — Negocios (reuniones, negociaciones, conferencias)</option>
+            <option>B-2 — Turismo, vacaciones o visita familiar</option>
+            <option>B-1/B-2 — Negocios y turismo</option>
+          </optgroup>
+          <optgroup label="Estudio / Intercambio">
+            <option>F-1 — Estudiante académico</option>
+            <option>M-1 — Estudiante vocacional / técnico</option>
+            <option>J-1 — Programa de intercambio</option>
+          </optgroup>
+          <optgroup label="Trabajo temporal">
+            <option>H-1B — Trabajador especializado</option>
+            <option>L-1 — Transferencia intraempresarial</option>
+            <option>O-1 — Habilidad extraordinaria</option>
+            <option>Otro tipo de trabajo temporal</option>
+          </optgroup>
+          <optgroup label="Otros">
+            <option>C — Tránsito</option>
+            <option>K — Prometido/a de ciudadano americano</option>
+            <option>Otro (explicar abajo)</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="field">
+        <label class="lbl">Descripción detallada del propósito<span class="sub">Explica en tus propias palabras por qué vas y qué vas a hacer</span></label>
+        <textarea id="propositoDetalle" rows="3" placeholder="Ej: Visitar a mi hermana que vive en Miami y hacer turismo por 3 semanas…"></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Fechas y duración</div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Fecha prevista de llegada <span class="req">*</span></label>
+          <input type="date" id="fechaLlegada" required>
+        </div>
+        <div>
+          <label class="lbl">Duración de la estancia <span class="req">*</span></label>
+          <select id="duracion" required>
+            <option value="">Selecciona...</option>
+            <option>Menos de 1 semana</option>
+            <option>1 a 2 semanas</option>
+            <option>2 a 4 semanas</option>
+            <option>1 a 3 meses</option>
+            <option>3 a 6 meses</option>
+            <option>Más de 6 meses</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">¿Dónde te quedarás?</div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Hotel o nombre de quien te recibe <span class="req">*</span></label>
+          <input type="text" id="hospedajeNombre" required placeholder="Ej: Hotel Marriott / María García">
+        </div>
+        <div>
+          <label class="lbl">Ciudad en EE.UU. <span class="req">*</span></label>
+          <input type="text" id="hospedajeCiudad" required placeholder="Ej: Miami, New York, Los Angeles">
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Estado <span class="req">*</span></label>
+          <input type="text" id="hospedajeEstado" required placeholder="Ej: Florida, New York, California">
+        </div>
+        <div>
+          <label class="lbl">Dirección (calle y número)</label>
+          <input type="text" id="hospedajeCalle" placeholder="Ej: 123 SW 8th St">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">¿Quién paga el viaje?</div>
+      <div class="field">
+        <div class="pill-group" data-name="quienPaga" data-cond="pagadorCond">
+          <label><input type="radio" name="quienPaga" value="Yo mismo/a"><span>Yo mismo/a</span></label>
+          <label><input type="radio" name="quienPaga" value="Otra persona"><span>Otra persona</span></label>
+          <label><input type="radio" name="quienPaga" value="Empresa u organización"><span>Empresa u organización</span></label>
+        </div>
+        <div class="cond" id="pagadorCond">
+          <div class="cond-inner">
+            <div class="field-row">
+              <div>
+                <label class="lbl">Nombre de quien paga</label>
+                <input type="text" id="pagadorNombre">
+              </div>
+              <div>
+                <label class="lbl">Relación contigo</label>
+                <input type="text" id="pagadorRelacion" placeholder="Ej: esposo/a, empleador, etc.">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <button class="btn btn-primary" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ══ PASO 4: HISTORIAL EE.UU. ══ -->
+  <div class="step" id="step-4">
+    <div class="step-headline">
+      <div class="eyebrow">🗂️ Sección 4</div>
+      <h2>Tu historial con EE.UU.</h2>
+      <p>Viajes y visas anteriores. Responde con honestidad.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Visitas anteriores</div>
+      <div class="field">
+        <label class="lbl">¿Has viajado antes a EE.UU.? <span class="req">*</span></label>
+        <div class="pill-group" data-name="viajeAnterior" data-cond="viajeAnteriorCond">
+          <label><input type="radio" name="viajeAnterior" value="No, nunca"><span>No, nunca</span></label>
+          <label><input type="radio" name="viajeAnterior" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="viajeAnteriorCond">
+          <div class="cond-inner">
+            <div class="field-row">
+              <div>
+                <label class="lbl">Fecha del último viaje (aprox.)</label>
+                <input type="date" id="fechaUltimoViaje">
+              </div>
+              <div>
+                <label class="lbl">¿Cuántas veces has visitado?</label>
+                <input type="number" id="numVisitas" min="1" placeholder="Ej: 3">
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <label class="lbl">Duración de la última estancia</label>
+              <input type="text" id="durUltimaEstancia" placeholder="Ej: 2 semanas">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Visa anterior de EE.UU.</div>
+      <div class="field">
+        <label class="lbl">¿Has tenido una visa de EE.UU. antes? <span class="req">*</span></label>
+        <div class="pill-group" data-name="visaAnterior" data-cond="visaAnteriorCond">
+          <label><input type="radio" name="visaAnterior" value="No"><span>No</span></label>
+          <label><input type="radio" name="visaAnterior" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="visaAnteriorCond">
+          <div class="cond-inner">
+            <div class="field-row">
+              <div>
+                <label class="lbl">Número de visa anterior</label>
+                <input type="text" id="numVisaAnterior">
+              </div>
+              <div>
+                <label class="lbl">Fecha de emisión</label>
+                <input type="date" id="fechaVisaAnterior">
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <label class="lbl">¿Esa visa fue perdida, robada o revocada?</label>
+              <div class="pill-group" data-name="visaRobada">
+                <label><input type="radio" name="visaRobada" value="No"><span>No</span></label>
+                <label><input type="radio" name="visaRobada" value="Sí, perdida/robada"><span>Sí, perdida/robada</span></label>
+                <label><input type="radio" name="visaRobada" value="Sí, revocada"><span>Sí, revocada</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Negaciones y problemas migratorios</div>
+      <div class="alert alert-warn">⚠️ Responde con honestidad. Una respuesta afirmativa no implica automáticamente el rechazo de la visa.</div>
+      <div class="field">
+        <label class="lbl">¿Te han negado una visa de EE.UU. o rechazado la entrada? <span class="req">*</span></label>
+        <div class="pill-group" data-name="visaNegada" data-cond="visaNegadaCond">
+          <label><input type="radio" name="visaNegada" value="No"><span>No</span></label>
+          <label><input type="radio" name="visaNegada" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="visaNegadaCond">
+          <div class="cond-inner">
+            <div class="field-row">
+              <div><label class="lbl">¿Cuándo?</label><input type="date" id="fechaVisaNegada"></div>
+              <div><label class="lbl">¿En qué ciudad / consulado?</label><input type="text" id="lugarVisaNegada"></div>
+            </div>
+            <div style="margin-top:10px"><label class="lbl">Motivo o razón indicada</label><textarea id="motivoVisaNegada" rows="2"></textarea></div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">¿Has sido deportado o removido de EE.UU.? <span class="req">*</span></label>
+        <div class="pill-group" data-name="deportado" data-cond="deportadoCond">
+          <label><input type="radio" name="deportado" value="No"><span>No</span></label>
+          <label><input type="radio" name="deportado" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="deportadoCond">
+          <div class="cond-inner">
+            <label class="lbl">Explica las circunstancias y fecha</label>
+            <textarea id="deportadoDetalle" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">¿Tienes licencia de conducir de EE.UU.?</label>
+        <div class="pill-group" data-name="licenciaEEUU" data-cond="licenciaCond">
+          <label><input type="radio" name="licenciaEEUU" value="No"><span>No</span></label>
+          <label><input type="radio" name="licenciaEEUU" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="licenciaCond">
+          <div class="cond-inner">
+            <div class="field-row">
+              <div><label class="lbl">Número de licencia</label><input type="text" id="numLicencia"></div>
+              <div><label class="lbl">Estado que la emitió</label><input type="text" id="estadoLicencia"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <button class="btn btn-primary" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ══ PASO 5: CONTACTO EN EE.UU. ══ -->
+  <div class="step" id="step-5">
+    <div class="step-headline">
+      <div class="eyebrow">📞 Sección 5</div>
+      <h2>Tu contacto en EE.UU.</h2>
+      <p>La persona o lugar de referencia durante tu estadía. Puede ser el hotel si no conoces a nadie.</p>
+    </div>
+
+    <div class="card">
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Apellidos del contacto <span class="req">*</span></label>
+          <input type="text" id="contApellidos" required>
+        </div>
+        <div>
+          <label class="lbl">Nombres del contacto <span class="req">*</span></label>
+          <input type="text" id="contNombres" required>
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Relación contigo <span class="req">*</span></label>
+          <select id="contRelacion" required>
+            <option value="">Selecciona...</option>
+            <option>Amigo/a</option>
+            <option>Familiar</option>
+            <option>Colega / Socio de negocios</option>
+            <option>Empleador</option>
+            <option>Hotel / Alojamiento</option>
+            <option>Institución educativa</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">Teléfono del contacto <span class="req">*</span></label>
+          <input type="tel" id="contTelefono" required placeholder="+1 (555) 000-0000">
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Dirección completa en EE.UU. <span class="req">*</span></label>
+        <input type="text" id="contDireccion" required placeholder="Calle, número, ciudad, estado, ZIP">
+      </div>
+      <div class="field">
+        <label class="lbl">Correo electrónico del contacto</label>
+        <input type="email" id="contEmail" placeholder="contacto@email.com">
+      </div>
+      <div class="field">
+        <label class="lbl">Organización / empresa (si aplica)<span class="sub">Nombre del hotel, empresa, institución</span></label>
+        <input type="text" id="contOrganizacion">
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <button class="btn btn-primary" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ══ PASO 6: FAMILIA ══ -->
+  <div class="step" id="step-6">
+    <div class="step-headline">
+      <div class="eyebrow">👨‍👩‍👧 Sección 6</div>
+      <h2>Tu familia</h2>
+      <p>Datos de tus padres, cónyuge y familiares en EE.UU.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Padre</div>
+      <div class="field field-row">
+        <div><label class="lbl">Apellidos del padre <span class="req">*</span></label><input type="text" id="padreApellidos" required></div>
+        <div><label class="lbl">Nombres del padre <span class="req">*</span></label><input type="text" id="padreNombres" required></div>
+      </div>
+      <div class="field field-row">
+        <div><label class="lbl">Fecha de nacimiento</label><input type="date" id="padreFechaNac"></div>
+        <div><label class="lbl">País de nacimiento</label><input type="text" id="padrePaisNac"></div>
+      </div>
+      <div class="field">
+        <label class="lbl">¿Se encuentra en EE.UU.?</label>
+        <div class="pill-group" data-name="padreEEUU" data-cond="padreEEUUCond">
+          <label><input type="radio" name="padreEEUU" value="No"><span>No</span></label>
+          <label><input type="radio" name="padreEEUU" value="Fallecido"><span>Fallecido</span></label>
+          <label><input type="radio" name="padreEEUU" value="Sí"><span>Sí, está en EE.UU.</span></label>
+        </div>
+        <div class="cond" id="padreEEUUCond">
+          <div class="cond-inner">
+            <label class="lbl">Estatus migratorio del padre en EE.UU.</label>
+            <select id="padreEstatus">
+              <option value="">Selecciona...</option>
+              <option>Ciudadano americano</option>
+              <option>Residente permanente (Green Card)</option>
+              <option>Visa de trabajo / estudio</option>
+              <option>Refugiado / Asilado</option>
+              <option>Indocumentado</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Madre</div>
+      <div class="field field-row">
+        <div><label class="lbl">Apellidos de la madre <span class="req">*</span></label><input type="text" id="madreApellidos" required></div>
+        <div><label class="lbl">Nombres de la madre <span class="req">*</span></label><input type="text" id="madreNombres" required></div>
+      </div>
+      <div class="field field-row">
+        <div><label class="lbl">Fecha de nacimiento</label><input type="date" id="madreFechaNac"></div>
+        <div><label class="lbl">País de nacimiento</label><input type="text" id="madrePaisNac"></div>
+      </div>
+      <div class="field">
+        <label class="lbl">¿Se encuentra en EE.UU.?</label>
+        <div class="pill-group" data-name="madreEEUU" data-cond="madreEEUUCond">
+          <label><input type="radio" name="madreEEUU" value="No"><span>No</span></label>
+          <label><input type="radio" name="madreEEUU" value="Fallecida"><span>Fallecida</span></label>
+          <label><input type="radio" name="madreEEUU" value="Sí"><span>Sí, está en EE.UU.</span></label>
+        </div>
+        <div class="cond" id="madreEEUUCond">
+          <div class="cond-inner">
+            <label class="lbl">Estatus migratorio de la madre en EE.UU.</label>
+            <select id="madreEstatus">
+              <option value="">Selecciona...</option>
+              <option>Ciudadana americana</option>
+              <option>Residente permanente (Green Card)</option>
+              <option>Visa de trabajo / estudio</option>
+              <option>Refugiada / Asilada</option>
+              <option>Indocumentada</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="conyugeCard">
+      <div class="card-title">Cónyuge / Pareja <span style="font-weight:300;color:var(--ink-soft)">(completa si aplica)</span></div>
+      <div class="field field-row">
+        <div><label class="lbl">Apellidos</label><input type="text" id="coApellidos"></div>
+        <div><label class="lbl">Nombres</label><input type="text" id="coNombres"></div>
+      </div>
+      <div class="field field-row">
+        <div><label class="lbl">Fecha de nacimiento</label><input type="date" id="coFechaNac"></div>
+        <div><label class="lbl">Nacionalidad</label><input type="text" id="coNacionalidad"></div>
+      </div>
+      <div class="field field-row">
+        <div><label class="lbl">Fecha de matrimonio / inicio de unión</label><input type="date" id="fechaMatrimonio"></div>
+        <div><label class="lbl">País de residencia actual del cónyuge</label><input type="text" id="coPaisResidencia"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Otros familiares en EE.UU.</div>
+      <div class="field">
+        <label class="lbl">¿Tienes familiares en EE.UU. (distintos a tus padres)?</label>
+        <div class="pill-group" data-name="familiaEEUU" data-cond="familiaEEUUCond">
+          <label><input type="radio" name="familiaEEUU" value="No"><span>No</span></label>
+          <label><input type="radio" name="familiaEEUU" value="Sí"><span>Sí</span></label>
+        </div>
+        <div class="cond" id="familiaEEUUCond">
+          <div class="cond-inner">
+            <label class="lbl">Nombre, relación y estatus migratorio</label>
+            <textarea id="familiaEEUUDetalle" rows="3" placeholder="Ej: Juan García — Hermano — Residente permanente&#10;María García — Tía — Ciudadana americana"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <button class="btn btn-primary" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ══ PASO 7: TRABAJO Y ESTUDIOS ══ -->
+  <div class="step" id="step-7">
+    <div class="step-headline">
+      <div class="eyebrow">💼 Sección 7</div>
+      <h2>Trabajo y estudios</h2>
+      <p>Tu situación laboral y educativa actual.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Ocupación actual</div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">¿A qué te dedicas? <span class="req">*</span></label>
+          <select id="ocupacion" required>
+            <option value="">Selecciona...</option>
+            <option>Empleado/a sector privado</option>
+            <option>Empleado/a sector público</option>
+            <option>Empresario/a o dueño/a de negocio</option>
+            <option>Independiente / Freelance</option>
+            <option>Estudiante</option>
+            <option>Ama/o de casa</option>
+            <option>Jubilado/a o pensionado/a</option>
+            <option>Desempleado/a</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">Cargo o título exacto</label>
+          <input type="text" id="cargo" placeholder="Ej: Gerente Comercial, Médico, Contador">
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Nombre de la empresa / empleador</label>
+          <input type="text" id="empleadorNombre">
+        </div>
+        <div>
+          <label class="lbl">Teléfono del trabajo</label>
+          <input type="tel" id="empleadorTel">
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Dirección del trabajo</label>
+          <input type="text" id="empleadorDireccion">
+        </div>
+        <div>
+          <label class="lbl">Fecha de inicio en el empleo actual</label>
+          <input type="date" id="fechaInicioEmpleo">
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Salario mensual aproximado</label>
+        <input type="text" id="salario" placeholder="Ej: $4,000,000 COP / $2,000 USD">
+      </div>
+      <div class="field">
+        <label class="lbl">Describe brevemente tus funciones laborales</label>
+        <textarea id="funciones" rows="2" placeholder="Ej: Manejo las relaciones con clientes y superviso al equipo de ventas…"></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Educación</div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Nivel educativo más alto <span class="req">*</span></label>
+          <select id="nivelEdu" required>
+            <option value="">Selecciona...</option>
+            <option>Sin estudios formales</option>
+            <option>Primaria</option>
+            <option>Secundaria / Bachillerato</option>
+            <option>Técnico / Tecnólogo</option>
+            <option>Universitario (pregrado)</option>
+            <option>Especialización</option>
+            <option>Maestría</option>
+            <option>Doctorado</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">Institución educativa</label>
+          <input type="text" id="institucion">
+        </div>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Carrera o área de estudio</label>
+          <input type="text" id="carrera">
+        </div>
+        <div>
+          <label class="lbl">Año de graduación</label>
+          <input type="text" id="anioGrad" placeholder="Ej: 2018">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Otros datos relevantes</div>
+      <div class="field">
+        <label class="lbl">Idiomas que hablas <span class="req">*</span></label>
+        <input type="text" id="idiomas" required placeholder="Ej: Español (nativo), Inglés (intermedio), Francés (básico)">
+      </div>
+      <div class="field">
+        <label class="lbl">Países que has visitado en los últimos 5 años</label>
+        <input type="text" id="paisesVisitados" placeholder="Ej: México, España, Panamá, Argentina">
+      </div>
+      <div class="field">
+        <label class="lbl">Organizaciones o partidos políticos a los que perteneces o has pertenecido</label>
+        <input type="text" id="organizaciones" placeholder="N/A si no aplica">
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <button class="btn btn-primary" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ══ PASO 8: SEGURIDAD ══ -->
+  <div class="step" id="step-8">
+    <div class="step-headline">
+      <div class="eyebrow">🔐 Sección 8</div>
+      <h2>Preguntas de seguridad</h2>
+      <p>Requeridas por el gobierno de EE.UU. para todos los solicitantes de visa.</p>
+    </div>
+
+    <div class="alert alert-warn">⚠️ <strong>Importante:</strong> Proporcionar información falsa es un delito. Una respuesta afirmativa no implica automáticamente rechazo — lo importante es ser honesto/a.</div>
+
+    <div class="card">
+      <div class="card-title">Salud</div>
+      <div id="sqSalud"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Antecedentes penales</div>
+      <div id="sqPenal"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Terrorismo y actividades ilegales</div>
+      <div id="sqTerrorismo"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Otras preguntas</div>
+      <div id="sqOtras"></div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <button class="btn btn-primary" onclick="goNext()">Continuar →</button>
+    </div>
+  </div>
+
+  <!-- ══ PASO 9: DATOS DE CONTACTO Y ENVÍO ══ -->
+  <div class="step" id="step-9">
+    <div class="step-headline">
+      <div class="eyebrow">✅ Sección 9</div>
+      <h2>Casi terminamos</h2>
+      <p>Necesitamos tus datos de contacto para hacerte seguimiento y enviarte actualizaciones.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">¿Cómo te contactamos?</div>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Teléfono celular <span class="req">*</span></label>
+          <input type="tel" id="celular" required placeholder="+57 300 000 0000">
+        </div>
+        <div>
+          <label class="lbl">Correo electrónico <span class="req">*</span></label>
+          <input type="email" id="emailSolicitante" required placeholder="tu@email.com">
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">País de residencia actual</label>
+        <input type="text" id="paisResidencia" placeholder="Ej: Colombia">
+      </div>
+      <div class="field">
+        <label class="lbl">Ciudad de residencia actual</label>
+        <input type="text" id="ciudadResidencia" placeholder="Ej: Bogotá, Medellín, Cali">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Información adicional</div>
+      <div class="field">
+        <label class="lbl">¿Tienes alguna pregunta o comentario adicional?<span class="sub">Cualquier detalle relevante que quieras que sepamos</span></label>
+        <textarea id="comentarios" rows="3" placeholder="Ej: Tengo una entrevista agendada para el 15 de junio, necesito urgencia..."></textarea>
+      </div>
+    </div>
+
+    <div class="card" style="background:#f4f8ff; border-color:var(--blue);">
+      <div class="card-title" style="color:var(--blue)">Declaración y autorización</div>
+      <p style="font-size:.85rem; color:var(--ink-mid); line-height:1.6; margin-bottom:14px;">
+        Al enviar este formulario, confirmo que <strong>toda la información proporcionada es verdadera y correcta</strong>. 
+        Autorizo el uso de estos datos para gestionar mi trámite de visa ante las autoridades consulares de EE.UU. 
+        Mis datos serán tratados de forma confidencial.
+      </p>
+      <div class="field field-row">
+        <div>
+          <label class="lbl">Nombre completo (como firma) <span class="req">*</span></label>
+          <input type="text" id="firma" required>
+        </div>
+        <div>
+          <label class="lbl">Fecha <span class="req">*</span></label>
+          <input type="date" id="fechaFirma" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="goPrev()">← Anterior</button>
+      <button class="btn btn-success btn-lg" id="submitBtn" onclick="submitForm()">Enviar formulario ✓</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="success-screen">
+    <div class="check-icon">✅</div>
+    <h2>¡Formulario enviado!</h2>
+    <p style="margin-top:12px;">Hemos recibido tu información. En las próximas horas nos comunicaremos contigo para continuar con el proceso de tu visa a EE.UU.</p>
+    <p style="margin-top:24px; font-size:.8rem; color:var(--ink-soft);">Si tienes dudas urgentes puedes escribirnos por WhatsApp al <strong>+57 314 361 8100</strong></p>
+  </div>
+
+</div><!-- /shell -->
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// ⚠️  REEMPLAZA ESTE VALOR con tu Web App URL de Google Apps Script
+// Instrucciones: ver HANDOFF.md → Sección "Publicar el Apps Script"
+// ─────────────────────────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'PEGA_AQUI_TU_URL_DE_APPS_SCRIPT';
+
+// ─── SECURITY QUESTIONS ───────────────────────────────────────────
+const SQ = {
+  sqSalud: [
+    ['sq_enf_comunicable', '¿Tiene o ha tenido alguna enfermedad física o mental comunicable de importancia para la salud pública?'],
+    ['sq_trastorno', '¿Tiene algún trastorno mental o físico que represente un peligro para usted mismo/a u otras personas?'],
+    ['sq_drogas', '¿Es o ha sido alguna vez consumidor/a habitual o adicto/a a drogas o sustancias controladas?'],
+  ],
+  sqPenal: [
+    ['sq_arrestado', '¿Ha sido arrestado, citado o condenado por algún delito o crimen? (incluso si fue exonerado o indultado)'],
+    ['sq_drogas_ley', '¿Ha infringido o conspirado para infringir alguna ley sobre sustancias controladas?'],
+    ['sq_prostitucion', '¿Ha ejercido la prostitución o procurado personas para la prostitución en los últimos 10 años?'],
+    ['sq_trata', '¿Ha obtenido algún beneficio del tráfico de personas?'],
+    ['sq_lavado', '¿Ha participado o conspirado para participar en lavado de dinero?'],
+    ['sq_fraude_gov', '¿Ha cometido o participado en fraude para obtener beneficios del gobierno de EE.UU.?'],
+  ],
+  sqTerrorismo: [
+    ['sq_terrorismo', '¿Ha participado en actividades terroristas o proporcionado asistencia a una organización terrorista?'],
+    ['sq_org_terrorista', '¿Ha sido miembro o representante de una organización terrorista?'],
+    ['sq_genocidio', '¿Ha ordenado, cometido o participado en genocidio?'],
+    ['sq_tortura', '¿Ha participado o planeado participar en actos de tortura o ejecuciones extrajudiciales?'],
+    ['sq_lib_religiosa', '¿Ha cometido u ordenado violaciones graves de libertades religiosas internacionales?'],
+    ['sq_partido_total', '¿Ha sido miembro o representante del Partido Comunista u otra organización totalitaria?'],
+    ['sq_nazi', '¿Participó en persecuciones nazis durante el período 1933-1945?'],
+    ['sq_ddhh', '¿Ha cometido, ordenado o participado en violaciones de derechos humanos o crímenes de guerra?'],
+  ],
+  sqOtras: [
+    ['sq_espionaje', '¿Busca participar en espionaje, sabotaje u otras actividades ilegales en EE.UU.?'],
+    ['sq_subversivo', '¿Busca participar en actividades que tengan como objetivo derrocar al gobierno de EE.UU.?'],
+    ['sq_fraude_visa', '¿Ha tratado de procurar visas u otros documentos de EE.UU. mediante fraude o engaño?'],
+    ['sq_incumplimiento', '¿Ha incumplido los términos de una visa de EE.UU. (permaneció más del tiempo autorizado)?'],
+    ['sq_orden_salida', '¿Se le ha ordenado alguna vez que regrese a su país de origen por un juez de inmigración?'],
+    ['sq_custodia', '¿Ha renunciado a la custodia de un menor ciudadano americano para evadir la custodia legal?'],
+  ]
+};
+
+// Render security questions
+Object.entries(SQ).forEach(([containerId, qs]) => {
+  const c = document.getElementById(containerId);
+  qs.forEach(([id, question]) => {
+    c.innerHTML += `
+      <div class="sq-item">
+        <p>${question}</p>
+        <div class="pill-group" style="flex-direction:column;gap:5px;" data-name="${id}">
+          <label style="border-radius:8px;font-size:.8rem;padding:7px 12px;"><input type="radio" name="${id}" value="No" checked><span>No</span></label>
+          <label style="border-radius:8px;font-size:.8rem;padding:7px 12px;"><input type="radio" name="${id}" value="Sí" onchange="openSQExplain('${id}')"><span>Sí</span></label>
+        </div>
+        <div class="sq-explain" id="explain-${id}">
+          <textarea id="txt-${id}" rows="2" placeholder="Por favor explica brevemente…"></textarea>
+        </div>
+      </div>`;
+  });
+});
+
+function openSQExplain(id) {
+  document.getElementById('explain-' + id)?.classList.add('open');
+  document.querySelector(`input[name="${id}"][value="No"]`)?.addEventListener('change', function() {
+    document.getElementById('explain-' + id)?.classList.remove('open');
+  }, { once: false });
+}
+
+// ─── PILL GROUP LOGIC ─────────────────────────────────────────────
+document.querySelectorAll('.pill-group').forEach(group => {
+  const name   = group.dataset.name;
+  const condId = group.dataset.cond;
+  group.querySelectorAll('label').forEach(lbl => {
+    lbl.addEventListener('click', () => {
+      group.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+      lbl.classList.add('selected');
+      if (condId) {
+        const cond  = document.getElementById(condId);
+        const value = lbl.querySelector('input')?.value || '';
+        const open  = value === 'Sí' || value === 'Otra persona' || value === 'Empresa u organización';
+        cond.classList.toggle('open', open);
+      }
+    });
+  });
+  // Default: select first
+  const first = group.querySelector('label');
+  if (first) first.classList.add('selected');
+});
+
+// ─── NAVIGATION ───────────────────────────────────────────────────
+let current = 1;
+const TOTAL = 9;
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('step-' + n);
+  if (el) el.classList.add('active');
+  current = n;
+  const pct = Math.round((n / TOTAL) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('stepLabel').textContent = `Paso ${n} de ${TOTAL}`;
+  document.getElementById('stepPct').textContent = pct + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goNext() { if (current < TOTAL) showStep(current + 1); }
+function goPrev() { if (current > 1) showStep(current - 1); }
+
+// ─── COLLECT DATA ─────────────────────────────────────────────────
+function v(id) {
+  const el = document.getElementById(id);
+  return el ? (el.value?.trim() || '') : '';
+}
+
+function r(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : '';
+}
+
+function collectData() {
+  const allSQ = Object.values(SQ).flat();
+  const sqData = {};
+  allSQ.forEach(([id]) => {
+    sqData[id] = r(id);
+    const explain = v('txt-' + id);
+    if (explain) sqData[id + '_explicacion'] = explain;
+  });
+
+  return {
+    // Meta
+    timestamp: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' }),
+
+    // Paso 1
+    apellidos: v('apellidos'),
+    nombres: v('nombres'),
+    otros_nombres: r('otrosNombres'),
+    otro_apellido: v('otroApellido'),
+    otro_nombre: v('otroNombre'),
+    sexo: v('sexo'),
+    estado_civil: v('estadoCivil'),
+    fecha_nacimiento: v('fechaNac'),
+    ciudad_nacimiento: v('ciudadNac'),
+    pais_nacimiento: v('paisNac'),
+    ciudadania: v('ciudadania'),
+    cedula: v('cedula'),
+    otra_ciudadania: r('otraCiud'),
+    otra_ciudadania_detalle: v('otraCiudDetalle'),
+
+    // Paso 2
+    tipo_pasaporte: v('tipoPasaporte'),
+    num_pasaporte: v('numPasaporte'),
+    pais_pasaporte: v('paisPasaporte'),
+    ciudad_pasaporte: v('ciudadPasaporte'),
+    fecha_expedicion: v('fechaExpedicion'),
+    fecha_vencimiento: v('fechaVencimiento'),
+    pasaporte_robado: r('pasRobado'),
+    num_pas_robado: v('numPasRobado'),
+    pais_pas_robado: v('paisPasRobado'),
+    explic_pas_robado: v('explicPasRobado'),
+
+    // Paso 3
+    proposito: v('proposito'),
+    proposito_detalle: v('propositoDetalle'),
+    fecha_llegada: v('fechaLlegada'),
+    duracion: v('duracion'),
+    hospedaje_nombre: v('hospedajeNombre'),
+    hospedaje_ciudad: v('hospedajeCiudad'),
+    hospedaje_estado: v('hospedajeEstado'),
+    hospedaje_calle: v('hospedajeCalle'),
+    quien_paga: r('quienPaga'),
+    pagador_nombre: v('pagadorNombre'),
+    pagador_relacion: v('pagadorRelacion'),
+
+    // Paso 4
+    viaje_anterior: r('viajeAnterior'),
+    fecha_ultimo_viaje: v('fechaUltimoViaje'),
+    num_visitas: v('numVisitas'),
+    dur_ultima_estancia: v('durUltimaEstancia'),
+    visa_anterior: r('visaAnterior'),
+    num_visa_anterior: v('numVisaAnterior'),
+    fecha_visa_anterior: v('fechaVisaAnterior'),
+    visa_robada: r('visaRobada'),
+    visa_negada: r('visaNegada'),
+    fecha_visa_negada: v('fechaVisaNegada'),
+    lugar_visa_negada: v('lugarVisaNegada'),
+    motivo_visa_negada: v('motivoVisaNegada'),
+    deportado: r('deportado'),
+    deportado_detalle: v('deportadoDetalle'),
+    licencia_eeuu: r('licenciaEEUU'),
+    num_licencia: v('numLicencia'),
+    estado_licencia: v('estadoLicencia'),
+
+    // Paso 5
+    cont_apellidos: v('contApellidos'),
+    cont_nombres: v('contNombres'),
+    cont_relacion: v('contRelacion'),
+    cont_telefono: v('contTelefono'),
+    cont_direccion: v('contDireccion'),
+    cont_email: v('contEmail'),
+    cont_organizacion: v('contOrganizacion'),
+
+    // Paso 6
+    padre_apellidos: v('padreApellidos'),
+    padre_nombres: v('padreNombres'),
+    padre_fecha_nac: v('padreFechaNac'),
+    padre_pais_nac: v('padrePaisNac'),
+    padre_eeuu: r('padreEEUU'),
+    padre_estatus: v('padreEstatus'),
+    madre_apellidos: v('madreApellidos'),
+    madre_nombres: v('madreNombres'),
+    madre_fecha_nac: v('madreFechaNac'),
+    madre_pais_nac: v('madrePaisNac'),
+    madre_eeuu: r('madreEEUU'),
+    madre_estatus: v('madreEstatus'),
+    conyuge_apellidos: v('coApellidos'),
+    conyuge_nombres: v('coNombres'),
+    conyuge_fecha_nac: v('coFechaNac'),
+    conyuge_nacionalidad: v('coNacionalidad'),
+    fecha_matrimonio: v('fechaMatrimonio'),
+    conyuge_pais_residencia: v('coPaisResidencia'),
+    familia_eeuu: r('familiaEEUU'),
+    familia_eeuu_detalle: v('familiaEEUUDetalle'),
+
+    // Paso 7
+    ocupacion: v('ocupacion'),
+    cargo: v('cargo'),
+    empleador_nombre: v('empleadorNombre'),
+    empleador_tel: v('empleadorTel'),
+    empleador_direccion: v('empleadorDireccion'),
+    fecha_inicio_empleo: v('fechaInicioEmpleo'),
+    salario: v('salario'),
+    funciones: v('funciones'),
+    nivel_educativo: v('nivelEdu'),
+    institucion: v('institucion'),
+    carrera: v('carrera'),
+    anio_graduacion: v('anioGrad'),
+    idiomas: v('idiomas'),
+    paises_visitados: v('paisesVisitados'),
+    organizaciones: v('organizaciones'),
+
+    // Paso 9
+    celular: v('celular'),
+    email: v('emailSolicitante'),
+    pais_residencia: v('paisResidencia'),
+    ciudad_residencia: v('ciudadResidencia'),
+    comentarios: v('comentarios'),
+    firma: v('firma'),
+    fecha_firma: v('fechaFirma'),
+
+    // Seguridad
+    ...sqData
+  };
+}
+
+// ─── SUBMIT ───────────────────────────────────────────────────────
+async function submitForm() {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  document.getElementById('loading-overlay').classList.add('show');
+
+  const data = collectData();
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    // no-cors = no response body, assume success
+    document.getElementById('loading-overlay').classList.remove('show');
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('success-screen').style.display = 'block';
+    document.querySelector('.progress-bar-fill').style.width = '100%';
+    document.getElementById('stepLabel').textContent = '¡Completado!';
+    document.getElementById('stepPct').textContent = '100%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch(err) {
+    document.getElementById('loading-overlay').classList.remove('show');
+    btn.disabled = false;
+    alert('Hubo un error al enviar. Por favor intenta de nuevo o contáctanos directamente.');
+    console.error(err);
+  }
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+document.getElementById('fechaFirma').value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
