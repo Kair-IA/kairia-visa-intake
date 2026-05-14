@@ -12,7 +12,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST')   return res.status(405).json({ ok: false, error: 'Method not allowed' });
 
   try {
-    const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+    const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT.replace(/^﻿/, ''));
     const auth = new google.auth.GoogleAuth({
       credentials: serviceAccount,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
