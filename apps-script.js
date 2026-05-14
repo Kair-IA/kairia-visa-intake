@@ -2,8 +2,7 @@
 // CONFIGURACIÓN — Editar antes de publicar
 // ============================================================
 const CONFIG = {
-  EMAIL_NOTIFICACION: 'hola@kairia.co',   // Email donde llegan alertas
-  NOMBRE_HOJA: 'Solicitudes',              // Nombre de la pestaña en el Sheet
+  NOMBRE_HOJA: 'Solicitudes',
 };
 
 // ============================================================
@@ -16,7 +15,6 @@ function doPost(e) {
 
     const sheet = getOrCreateSheet(CONFIG.NOMBRE_HOJA);
     writeRow(sheet, data);
-    sendNotification(data);
 
     return ContentService
       .createTextOutput(JSON.stringify({ ok: true }))
@@ -74,33 +72,3 @@ function writeRow(sheet, data) {
   }
 }
 
-function sendNotification(data) {
-  const nombre    = `${data.nombres || ''} ${data.apellidos || ''}`.trim() || 'Sin nombre';
-  const celular   = data.celular   || 'No proporcionado';
-  const email     = data.email     || 'No proporcionado';
-  const proposito = data.proposito || 'No especificado';
-  const fecha     = data.timestamp || new Date().toLocaleString();
-
-  const asunto  = `🛂 Nueva solicitud de visa — ${nombre}`;
-  const cuerpo  = `
-Nueva solicitud recibida en el formulario de captación de visa EE.UU.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-DATOS DEL SOLICITANTE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Nombre:     ${nombre}
-Celular:    ${celular}
-Email:      ${email}
-Propósito:  ${proposito}
-Enviado:    ${fecha}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Revisa la hoja de cálculo para ver todos los datos:
-https://docs.google.com/spreadsheets
-
-─────────────────────────────
-KairIA · hola@kairia.co · +57 314 361 8100
-  `.trim();
-
-  GmailApp.sendEmail(CONFIG.EMAIL_NOTIFICACION, asunto, cuerpo);
-}
