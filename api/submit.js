@@ -12,7 +12,8 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST')   return res.status(405).json({ ok: false, error: 'Method not allowed' });
 
   try {
-    const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT.replace(/^﻿/, ''));
+    const raw = process.env.GOOGLE_SERVICE_ACCOUNT.replace(/^﻿/, '');
+    const serviceAccount = JSON.parse(raw);
     const auth = new google.auth.GoogleAuth({
       credentials: serviceAccount,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -20,6 +21,16 @@ module.exports = async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const data = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+
+    // Ensure the "Solicitudes" tab exists
+    const meta = await sheets.spreadsheets.get({ spreadsheetId: SHEET_ID });
+    const exists = meta.data.sheets.some(s => s.properties.title === TAB);
+    if (!exists) {
+      await sheets.spreadsheets.batchUpdate({
+        spreadsheetId: SHEET_ID,
+        requestBody: { requests: [{ addSheet: { properties: { title: TAB } } }] },
+      });
+    }
 
     // Read existing headers (row 1)
     let headers;
